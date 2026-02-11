@@ -15,6 +15,8 @@ Required:
     - retention_daily (block):
         - count (required)
 Optional:
+    - backup_tier
+    - snapshot_retention_in_days
     - timezone
     - retention_monthly (block):
         - count (required)
@@ -35,10 +37,12 @@ Optional:
 EOT
 
   type = map(object({
-    name                = string
-    recovery_vault_name = string
-    resource_group_name = string
-    timezone            = optional(string, "UTC")
+    name                       = string
+    recovery_vault_name        = string
+    resource_group_name        = string
+    backup_tier                = optional(string) # Default: "snapshot"
+    snapshot_retention_in_days = optional(number) # Default: 0
+    timezone                   = optional(string) # Default: "UTC"
     backup = object({
       frequency = string
       hourly = optional(object({
@@ -53,8 +57,8 @@ EOT
     })
     retention_monthly = optional(object({
       count             = number
-      days              = optional(set(string))
-      include_last_days = optional(bool, false)
+      days              = optional(set(number))
+      include_last_days = optional(bool) # Default: false
       weekdays          = optional(set(string))
       weeks             = optional(set(string))
     }))
@@ -64,8 +68,8 @@ EOT
     }))
     retention_yearly = optional(object({
       count             = number
-      days              = optional(set(string))
-      include_last_days = optional(bool, false)
+      days              = optional(set(number))
+      include_last_days = optional(bool) # Default: false
       months            = set(string)
       weekdays          = optional(set(string))
       weeks             = optional(set(string))

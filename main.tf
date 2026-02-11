@@ -1,10 +1,12 @@
 resource "azurerm_backup_policy_file_share" "backup_policy_file_shares" {
   for_each = var.backup_policy_file_shares
 
-  name                = each.value.name
-  recovery_vault_name = each.value.recovery_vault_name
-  resource_group_name = each.value.resource_group_name
-  timezone            = each.value.timezone
+  name                       = each.value.name
+  recovery_vault_name        = each.value.recovery_vault_name
+  resource_group_name        = each.value.resource_group_name
+  backup_tier                = each.value.backup_tier
+  snapshot_retention_in_days = each.value.snapshot_retention_in_days
+  timezone                   = each.value.timezone
 
   backup {
     frequency = each.value.backup.frequency
