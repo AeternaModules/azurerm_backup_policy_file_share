@@ -40,9 +40,9 @@ EOT
     name                       = string
     recovery_vault_name        = string
     resource_group_name        = string
-    backup_tier                = optional(string) # Default: "snapshot"
-    snapshot_retention_in_days = optional(number) # Default: 0
-    timezone                   = optional(string) # Default: "UTC"
+    backup_tier                = optional(string)
+    snapshot_retention_in_days = optional(number)
+    timezone                   = optional(string)
     backup = object({
       frequency = string
       hourly = optional(object({
@@ -58,7 +58,7 @@ EOT
     retention_monthly = optional(object({
       count             = number
       days              = optional(set(number))
-      include_last_days = optional(bool) # Default: false
+      include_last_days = optional(bool)
       weekdays          = optional(set(string))
       weeks             = optional(set(string))
     }))
@@ -69,7 +69,7 @@ EOT
     retention_yearly = optional(object({
       count             = number
       days              = optional(set(number))
-      include_last_days = optional(bool) # Default: false
+      include_last_days = optional(bool)
       months            = set(string)
       weekdays          = optional(set(string))
       weeks             = optional(set(string))
